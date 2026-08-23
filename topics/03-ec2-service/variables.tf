@@ -122,7 +122,7 @@ variable "ec2_instance" {
   default = {
     database = {
         instance_type = "t3.micro"
-        subnet_key    = "public-a"
+        subnet_key    = "private-a"
         public_ip     = false
         subnet_type   = "private"
         role          = "Database Server"

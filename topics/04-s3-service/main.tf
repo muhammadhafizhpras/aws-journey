@@ -90,6 +90,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
     rule {
         id     = "S3-Storage-Transition-Rule"
         status = "Enabled"
+        filter {}
 
         # Transisi ke Standard IA
         dynamic "transition" {
