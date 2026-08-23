@@ -332,3 +332,12 @@ An AWS feature that configures permissions at the bucket or account level to pre
 | **IgnorePublicAcls** | Ignores all existing public ACLs on the S3 bucket. | Neutralizes risk if objects were previously made public via ACL. Preferred over deleting the ACLs. |
 | **BlockPublicPolicy** | Rejects adding or changing permissions that grant open public/internet access (e.g., `principal: "*"`). | Ensures no user can apply or modify a bucket policy with public access. |
 | **RestrictPublicBuckets** | Restricts access to buckets with public policies to only AWS services or authenticated users within the same AWS account. | Isolates public-facing buckets so only internal services and users can access them. For public content, use a CDN instead of direct S3 access. |
+
+Masalah Kebocoran Anggaran: Saat mengunggah file besar (>100 MB), SDK AWS memecah file menjadi puluhan bagian (multipart upload). Jika koneksi internet terputus di pertengahan proses, bagian-bagian file yang sudah terunggah akan mengendap di S3 selamanya. File ini tidak terlihat di konsol S3 biasa, tetapi AWS tetap menagih biaya penyimpanannya tiap bulan.
+
+Solusi Wajib: Selalu aktifkan aturan Lifecycle Rule dengan opsi AbortIncompleteMultipartUpload (misalnya hapus potongan terputus setelah 7 hari) di setiap bucket produksi Anda.
+
+
+s3 bucket keys
+berfungsi untuk memproses object massal seperti memindahkan 1 juta file untuk masalah biaya api kms dan throtling 
+saat diaktifkan s3 akan men cache kunci di kms di level bucket, alih alih memanggil kms setiap kali ada request file, maka s3 hanya memanggil kms sekali, ini akan memangkas biaya api call kms dan biayanya bisa hemat hingga 99% secara otomatis tanpa mengubah code application

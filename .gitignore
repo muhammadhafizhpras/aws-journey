@@ -25,3 +25,4 @@ override.tf.json
 *_override.tf.json**/.terraform/
 *.terraform.lock.hcl
 assets
+*infracost.yml
