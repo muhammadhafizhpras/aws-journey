@@ -69,7 +69,7 @@ variable "enable_intelligent_tiering" {
 # Intelligent Retention
 variable "intelligent_tiering_days" {
   type        = number
-  default     = 30
+  default     = 90
   description = "description"
 }
 
@@ -208,3 +208,23 @@ variable "restrict_public_buckets" {
   description = "Block Public Subnet access s3"
 }
 
+# Lifecycle Configuration Days
+variable "lifecycle_expiration_days" {
+  type = number
+  default = 30
+  description = "Days Before Noncurrent Versions and delete markers are Cleaned Up"
+}
+
+# Access Bassed Access Control
+variable "enable_abac" {
+  type = bool
+  default = true
+  description = "For Enable ABAC tagging permission access"
+}
+
+# Encryption
+variable "enable_encryption" {
+  type = bool
+  default = true
+  description = "Encryption for object on s3"
+}

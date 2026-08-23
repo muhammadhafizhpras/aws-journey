@@ -341,3 +341,9 @@ Solusi Wajib: Selalu aktifkan aturan Lifecycle Rule dengan opsi AbortIncompleteM
 s3 bucket keys
 berfungsi untuk memproses object massal seperti memindahkan 1 juta file untuk masalah biaya api kms dan throtling 
 saat diaktifkan s3 akan men cache kunci di kms di level bucket, alih alih memanggil kms setiap kali ada request file, maka s3 hanya memanggil kms sekali, ini akan memangkas biaya api call kms dan biayanya bisa hemat hingga 99% secara otomatis tanpa mengubah code application
+
+ABAC (Attribute-Based Access Control) pada S3 bucket adalah metode pengamanan dan pengaturan hak akses berdasarkan atribut (karakteristik atau label), bukan sekadar mendaftarkan nama user atau grup secara manual (Role-Based Access Control / RBAC).
+
+Server Access Logging adalah fitur di Amazon S3 yang berfungsi untuk mencatat setiap permintaan (request) yang masuk ke dalam S3 bucket kamu.
+
+Berbeda dengan CloudTrail yang mencatat aktivitas manajemen API (seperti siapa yang membuat bucket atau mengubah policy), S3 Access Logging mencatat interaksi data secara langsung (siapa yang mendownload, meng-upload, menghapus, atau melihat daftar file di dalam bucket tersebut).

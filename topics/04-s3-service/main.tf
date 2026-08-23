@@ -42,8 +42,28 @@ resource "aws_s3_bucket_versioning" "main" {
     }
 }
 
+# S3 Buckket Lifecycle Configurastion
+resource "aws_s3_bucket_lifecycle_configuration" "cleanup" {
+  bucket = aws_s3_bucket.main.id
+
+  rule {
+    id = "auto-cleanup-expired-versions-and-markers"
+    status = "Enabled"
+
+    filter {
+      prefix = ""
+    }
+    noncurrent_version_expiration {
+        noncurrent_days = var.lifecycle_expiration_days
+    }
+
+    expiration {
+        expired_object_delete_marker = true
+    }
+  }
+}
+
 # Encryption
-# Encryption (Diperbaiki dengan menambahkan _configuration)
 resource "aws_s3_bucket_server_side_encryption_configuration" "main" {
     bucket  = aws_s3_bucket.main.id
 
@@ -52,7 +72,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "main" {
             kms_master_key_id   = aws_kms_key.s3_key.arn
             sse_algorithm       = "aws:kms"
         }
-        bucket_key_enabled = true
+        bucket_key_enabled = var.enable_encryption
     }
 }
 
@@ -70,6 +90,15 @@ resource "aws_s3_bucket_object_lock_configuration" "main" {
     }
 }
 
+# ABAC
+resource "aws_s3_bucket_abac" "name" {
+  bucket = aws_s3_bucket.main.id
+
+  abac_status {
+    status = "Enabled"
+  }
+}
+
 # Intelligent-Tiering
 resource "aws_s3_bucket_intelligent_tiering_configuration" "main" {
     count   = var.enable_intelligent_tiering ? 1 : 0
@@ -80,7 +109,6 @@ resource "aws_s3_bucket_intelligent_tiering_configuration" "main" {
         access_tier = var.access_tier_it
         days        = var.intelligent_tiering_days
     }
-    
 }
 
 # Lifecycle Configuration
@@ -128,5 +156,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "main" {
             }
         }
     }
+depends_on = [aws_s3_bucket_versioning.main]
 }
 

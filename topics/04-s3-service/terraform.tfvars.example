@@ -44,3 +44,4 @@ glacier_flexible_days = 90
 # S3 Lifecycle Rules Glacier Deep Archive
 enable_glacier_deep_archive = true
 glacier_deep_archive_days = 180
+lifecycle_expiration_days = 30
