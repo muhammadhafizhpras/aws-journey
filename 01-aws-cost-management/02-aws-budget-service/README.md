@@ -82,21 +82,21 @@ This resource creates an AWS Budget with:
 
 All boolean, defaults vary. Controls what is included in budget calculation:
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `include_credit` | `false` | Include AWS Credits (promo, free tier) |
-| `include_discount` | `true` | Include volume/RI/SP discounts |
-| `include_other_subscription` | `true` | Include other subscription costs (Marketplace, etc.) |
-| `include_recurring` | `true` | Include recurring costs (EC2 running, RDS, etc.) |
-| `include_refund` | `true` | Include refunds |
-| `include_subscription` | `true` | Include subscription upfront costs |
-| `include_support` | `true` | Include AWS Support plan costs |
-| `include_tax` | `true` | Include taxes |
-| `include_upfront` | `true` | Include RI/SP upfront costs |
-| `use_blended` | `false` | Use blended rate (for consolidated billing) |
-| `use_amortized` | `false` | Use amortized cost (amortize RI/SP upfront per month) |
+| Variable | Default | Description | Use Case |
+|----------|---------|-------------|----------|
+| `include_credit` | `false` | Include AWS Credits (promo, free tier) | **Set to `false`** to track actual cash spend. If you have a $100 AWS promotional credit, setting this to `false` ensures your budget reflects real money leaving your company's pocket, not spend offset by coupons. |
+| `include_discount` | `true` | Include volume/RI/SP discounts | **Keep `true`** for net cost visibility. Set to `false` only for stress-testing maximum possible bill without any discounts applied. |
+| `include_other_subscription` | `true` | Include other subscription costs (Marketplace, etc.) | **Set to `false`** to exclude third-party Marketplace subscriptions (e.g., firewall, monitoring tools) that are managed under separate contracts by finance. |
+| `include_recurring` | `true` | Include recurring costs (EC2 running, RDS, etc.) | **Keep `true`** as this covers the bulk of infrastructure spend (running instances, databases). |
+| `include_refund` | `true` | Include refunds | **Set to `false`** for conservative budgeting. Prevents incidental refunds from making the budget appear "looser" than actual gross charges. |
+| `include_subscription` | `true` | Include subscription upfront costs | **Set to `false`** to exclude Marketplace subscription upfront fees if managed separately by procurement/finance. |
+| `include_support` | `true` | Include AWS Support plan costs | **Set to `false`** if AWS Support (Business/Enterprise) is paid centrally by management/finance and should not pollute DevOps operational budget alerts. |
+| `include_tax` | `true` | Include taxes | **Set to `false`** for technical teams focusing on raw usage costs (EC2, S3, RDS). Tax handling is typically owned by accounting/tax department. |
+| `include_upfront` | `true` | Include RI/SP upfront costs | **Set to `false`** when paired with `use_amortized = true` to avoid double-counting upfront payments in the current month. |
+| `use_blended` | `false` | Use blended rate (for consolidated billing) | **Set to `false`** for per-account cost isolation. Prevents cross-account RI subsidy mixing; each account pays its own actual rate. |
+| `use_amortized` | `false` | Use amortized cost (amortize RI/SP upfront per month) | **Critical for RI/Savings Plans**. **Set to `true`** to spread upfront commitments evenly across months. Example: $1,200 Savings Plan paid in January → shows as $100/month instead of a $1,200 spike in January. Keeps budget graphs stable and realistic. |
 
-> **Note:** For production `COST` budgets, recommended: `use_amortized = true`, `include_credit = false`, `include_refund = false`.
+> **Note:** For production `COST` budgets, recommended: `use_amortized = true`, `include_credit = false`, `include_refund = false`, `include_upfront = false` (when using amortized).
 
 ### D. Cost Filters (Scope & Filtering)
 
@@ -189,7 +189,7 @@ notifications = [{
 
 ```bash
 # 1. Navigate to project directory
-cd aws-infrastructure-journey/01-foundations-and-security/02-aws-budget-service
+cd aws-infrastructure-journey/01-aws-cost-management/02-aws-budget-service
 
 # 2. Copy template and edit values
 cp terraform.tfvars.example terraform.tfvars
