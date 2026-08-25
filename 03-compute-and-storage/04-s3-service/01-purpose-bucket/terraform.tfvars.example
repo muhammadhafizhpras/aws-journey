@@ -1,0 +1,47 @@
+# Global and Tagging Configuration
+aws_region      = "your_region(ap-southeast-3)"
+environment     = "your_environment(dev/stag/prod)"
+project_name    = "your_project_name"
+cost_center     = "your_cost_center(finance-ops-001)"
+owner           = "owner_this_project(Cloud-Engineer_Team)"
+
+bucket_tags = {
+  DataClassification = "Confidential"
+  BackupFrequency    = "Daily"
+  Compliance         = "PCI-DSS"
+}
+
+# S3 Bucket Configuration
+bucket_name = "dev-portofolio-23-08-2026"
+enable_versioning = true
+force_destroy = false
+
+# S3 Security and Access Control
+object_ownership = "BucketOwnerEnforced"
+block_public_acls = true
+block_public_policy = true
+ignore_public_acls = true
+restrict_public_buckets = true
+
+# S3 Data Protection
+enable_object_lock = true
+object_lock_mode = "GOVERNANCE"
+object_lock_days = 30
+
+# S3 Cost Optimization
+enable_intelligent_tiering  = true
+access_tier_it              = "ARCHIVE_ACCESS/DEEP_ARCHIVE_ACCESS"
+intelligent_tiering_days    = 90
+
+# S3 Lifecycle Rules Standart Infequent Access
+enable_standart_ia = true
+standart_ia_days = 30
+
+# S3 Lifecycle Rules Glacier Flexible Retrival
+enable_glacier_flexible = true
+glacier_flexible_days = 90
+
+# S3 Lifecycle Rules Glacier Deep Archive
+enable_glacier_deep_archive = true
+glacier_deep_archive_days = 180
+lifecycle_expiration_days = 30

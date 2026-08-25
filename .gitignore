@@ -26,4 +26,3 @@ override.tf.json
 *.terraform.lock.hcl
 assets
 *infracost.yml
-*

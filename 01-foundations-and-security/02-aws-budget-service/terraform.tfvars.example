@@ -1,0 +1,59 @@
+aws_region      = "ap-southeast-3"
+environment     = "production"
+project_name    = "portofolio"
+
+budget_name = "aws-budget-portofolio"
+budget_type = "COST"
+time_unit = "MONTHLY"
+time_start = "2026-08-25_18:00"
+time_end = "2026-08-25-19:00"
+budget_limit = {
+  amount = "1.0"
+  unit = "USD"
+}
+
+cost_filters = {
+  service = [
+     "Amazon EC2 - Compute",
+     "Amazon S3 - Storage" 
+    ]
+}
+
+cost_filter_tags = {
+  Environment = [ "Production" ]
+}
+
+include_credit              = false
+include_discount            = false
+include_other_subscription  = false
+include_refund              = false
+include_recurring           = false
+include_subscription        = false
+include_support             = false
+include_tax                 = false
+include_upfront             = false
+use_blended                 = false
+use_amortized               = true
+
+notifications = [ {
+  comparison_operator = "GREATER_THAN"
+  threshold = 50
+  threshold_type = "PERCENTAGE"
+  notification_type = "ACTUAL"
+  subscriber_email_addresses = [ "your_email@example.com" ]
+},
+{
+  comparison_operator = "GREATER_THAN"
+  threshold = 80
+  threshold_type = "PERCENTAGE"
+  notification_type = "ACTUAL"
+  subscriber_email_addresses = [ "your_email@example.com" ]
+},
+{
+  comparison_operator = "GREATER_THAN"
+  threshold = 100
+  threshold_type = "PERCENTAGE"
+  notification_type = "FORECASTED"
+  subscriber_email_addresses = [ "your_email@example.com" ]
+} 
+]
