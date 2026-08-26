@@ -30,3 +30,22 @@ next
 2. subcription name
 3. alerting frequency (daily summaries -> alert recipients, weekly summaries -> alert recipients, individual alerts -> enter an amazon sns arn)
 4. threshold ($ and %) bisa lebih dari 1
+
+penjelasan parameter pada cost monitor
+aws services
+memantau seluruh layanan aws secara umum didalam account
+linked account
+memantau berdasaekan akun aws tertentu 
+cost category
+memantau berdasarkan pengelompokan tag atau kategory biaya tertentu
+aws control tower
+memantau berdasarkan organizational unit
+
+penjelasan parameter pada subcriptions
+frequency
+immediate = mengirimkan peringatan secepat mungkin setelah cost anomaly terdeteksi
+daily summary = ringkasan laporan anomali yang dikirim sehari sekali
+weekly summary = ringkasan laporan anomaly yang dikirim seminggu sekali
+notification recipient = alamat tujuan email
+
+SERVICE: Memantau anomali berdasarkan layanan AWS secara terpisah (contoh: mendeteksi lonjakan khusus di EC2, S3, RDS, dll).  LINKED_ACCOUNT: Memantau anomali berdasarkan masing-masing akun AWS (sangat berguna jika Anda menggunakan struktur AWS Organizations dengan banyak akun anak).  COST_CATEGORY: Memantau berdasarkan kategori biaya (Cost Categories) yang sudah Anda definisikan sebelumnya di AWS Cost Management.  TAG: Memantau berdasarkan cost allocation tags tertentu
