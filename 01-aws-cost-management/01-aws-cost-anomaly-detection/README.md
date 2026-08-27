@@ -22,20 +22,20 @@ AWS Cost Anomaly Detection uses machine learning to identify anomalous spending 
 ┌─────────────────────────────────────────────────────────────────┐
 │                    AWS Cost Anomaly Detection                   │
 ├─────────────────────────────────────────────────────────────────┤
-│  ┌─────────────────┐    ┌──────────────────────────────────┐   │
-│  │  Anomaly Monitor │───▶│     Anomaly Subscription         │   │
-│  │                  │    │  - Frequency (DAILY/WEEKLY/      │   │
-│  │  Types:          │    │    IMMEDIATE)                    │   │
-│  │  - DIMENSIONAL   │    │  - Threshold (Absolute/Percentage)│  │
-│  │    - SERVICE     │    │  - Subscribers (Email/SNS)       │   │
-│  │    - LINKED_ACCOUNT                    │                   │
-│  │  - CUSTOM        │    └──────────────────────────────────┘   │
-│  │    - TAG         │              │                             │
-│  │    - COST_CATEGORY              ▼                             │
-│  └─────────────────┘    ┌──────────────────────────────────┐   │
-│                         │         SNS Topic (IMMEDIATE)    │   │
-│                         │         + Email Subscription      │   │
-│                         └──────────────────────────────────┘   │
+│  ┌─────────────────┐    ┌──────────────────────────────────┐    │
+│  │ Anomaly Monitor │──▶│     Anomaly Subscription         │    │
+│  │                 │    │  - Frequency (DAILY/WEEKLY/      │    │
+│  │  Types:         │    │    IMMEDIATE)                    │    │
+│  │  - DIMENSIONAL  │    │  - Threshold (Absolute/Percentage│    │
+│  │    - SERVICE    │    │  - Subscribers (Email/SNS)       │    │
+│  │ - LINKED_ACCOUNT|    │                                  |    │
+│  │- CUSTOM         │    └──────────────────────────────────┘    │
+│  │ - TAG           │               │                            │
+│  │ - COST_CATEGORY |               ▼                            │
+│  └─────────────────┘    ┌──────────────────────────────────┐    │
+│                         │         SNS Topic (IMMEDIATE)    │    │
+│                         │         + Email Subscription     │    │
+│                         └──────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
