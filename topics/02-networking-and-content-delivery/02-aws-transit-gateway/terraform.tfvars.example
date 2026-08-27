@@ -1,0 +1,30 @@
+aws_region  = "ap-southeast-3"
+tgw_name    = "Pras-TGW-Journey"
+description = "MAIN TGW"
+
+amazon_sid_asn = 64512
+auto_accept_shared_attachments      = "disable"
+default_route_table_association     = "enable"
+default_route_table_propagation     = "enable"
+dns_support                         = "enable"
+vpn_ecmp_support                    = "enable"
+multicast_support                   = "enable"
+security_group_referencing_support  = "enable"
+
+#VPC ATTACHMENTS
+vpc_attachments = {
+  vpc_1 = {
+    vpc_id = "ID_VPC"
+    subnet_ids = [ "ID_SUBNET1","ID_SUBNET2","ID_SUBNET3" ]
+  },
+  vpc_2 = {
+    vpc_id = "ID_VPC"
+    subnet_ids = [ "ID_SUBNET1","ID_SUBNET2","ID_SUBNET3" ]
+  }
+} 
+
+tags = {
+  Environment = "Prod"
+  Project     = "Transit-Gateway"
+  ManagedBy   = "Terraform"
+}
