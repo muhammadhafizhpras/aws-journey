@@ -1,18 +1,29 @@
 environment  = "Production"
 project_name = "AWS-Cost-Anomaly-Detection-Journey"
 monitor_name = "AWS-Cost-Monitor-Journey"
-monitor_type = "DIMENSIONAL" #or #CUSTOM
+monitor_type = "DIMENSIONAL" # Pilihan: DIMENSIONAL atau CUSTOM
 
-#if DIMENSIONAL
-monitor_dimensional = "SERVICE" #or "LINKED_ACCOUNT"
+# Konfigurasi jika monitor_type = "DIMENSIONAL"
+monitor_dimensional = "SERVICE" # Pilihan: SERVICE atau LINKED_ACCOUNT
 
-#if Custom 
-# monitor_custom = "TAG" or "COST_CATEGORY"
-# target_key     = 
-# target_value   = 
+# Konfigurasi jika monitor_type = "CUSTOM"
+# monitor_custom = "TAG" # Pilihan: TAG atau COST_CATEGORY
+# target_key     = "Environment"
+# target_value   = ["Production"]
 
-subcription_name = "Journet-Cost-Subscription"
-frequency        = "IMMEDIATE"
-subscriber       = [ "muhammadhafizhpras@gmail.com", "prasetyo@nipindo.com"]
-threshold_type   = "ANOMALY_TOTAL_IMPACT_PERCENTAGE" #or #"ANOMALY_TOTAL_IMPACT_ABSOLUTE"
-threshold_value  = 20
+subscription_name = "Journey-Cost-Subscription"
+frequency        = "DAILY" # Pilihan: DAILY, WEEKLY, atau IMMEDIATE
+
+# KORSI: Tambahkan notification_email sebagai fallback untuk menyelaraskan skema variables.tf
+notification_email = "muhammadhafizhpras@gmail.com"
+
+threshold_type  = "ANOMALY_TOTAL_IMPACT_PERCENTAGE" # Pilihan: ANOMALY_TOTAL_IMPACT_PERCENTAGE atau ANOMALY_TOTAL_IMPACT_ABSOLUTE
+threshold_value = 20
+
+# Digunakan untuk frekuensi DAILY atau WEEKLY
+subscriber = [
+  {
+    type    = "EMAIL"
+    address = "muhammadhafizhpras@gmail.com"
+  }
+]

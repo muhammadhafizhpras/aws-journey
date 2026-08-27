@@ -67,7 +67,7 @@ variable "target_value" {
   default = ["Production"]
 }
 
-variable "subcription_name" {
+variable "subscription_name" {
   type = string
   description = "Name of alert subcription"
   default = "pras-cost-subcription"
@@ -80,9 +80,16 @@ variable "frequency" {
 
   validation {
     condition = contains(["DAILY", "WEEKLY", "IMMEDIATE"], var.frequency)
-    error_message = "Choose one : DALIY, WEEKLY, IMMEDIATE"
+    error_message = "Choose one : DAILY, WEEKLY, IMMEDIATE"
   }
 }
+
+variable "notification_email" {
+  type         = string
+  description  = "Email address to receive immediate SNS notifications"
+  default      = "your_email@example.com"
+}
+
 
 variable "subscriber" {
   type = list(object({

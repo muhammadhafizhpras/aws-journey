@@ -1,26 +1,25 @@
-output "anomaly_monitor_id" {
-  description = "ID from AWS Cost Anomaly Monitor"
-  value       = aws_ce_anomaly_monitor.this.id
-}
-
 output "anomaly_monitor_arn" {
-  description = "ARN from AWS Cost Anomaly Monitor"
+  description = "ARN dari AWS Cost Anomaly Monitor"
   value       = aws_ce_anomaly_monitor.this.arn
 }
 
 output "anomaly_subscription_arn" {
-  description = "ARN from AWS Cost Anomaly Subscription (Alarm)"
+  description = "ARN dari AWS Cost Anomaly Subscription"
   value       = aws_ce_anomaly_subscription.this.arn
 }
 
+output "sns_topic_arn" {
+  description = "ARN dari SNS Topic (hanya ada jika frequency = IMMEDIATE)"
+  value       = var.frequency == "IMMEDIATE" ? aws_sns_topic.cost_anomaly[0].arn : null
+}
+
 output "monitoring_summary" {
-  description = "Summary config cost monitoring"
+  description = "Ringkasan konfigurasi Cost Anomaly Monitoring"
   value = {
-    monitor_name      = var.monitor_name
-    monitor_type      = var.monitor_type
-    monitor_dimension = var.monitor_dimensional
+    monitor_name      = aws_ce_anomaly_monitor.this.name
+    subscription_name = aws_ce_anomaly_subscription.this.name
     frequency         = var.frequency
-    threshold         = "$${var.threshold_value} (Absolute)"
-    notification_to   = var.subscriber[0].address
+    notification_to   = var.frequency == "IMMEDIATE" ? var.notification_email : var.subscriber[0].address
+    threshold         = "${var.threshold_type} >= ${var.threshold_value}"
   }
 }
