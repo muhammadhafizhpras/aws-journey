@@ -1,0 +1,18 @@
+environment  = "Production"
+project_name = "AWS-Cost-Anomaly-Detection-Journey"
+monitor_name = "AWS-Cost-Monitor-Journey"
+monitor_type = "DIMENSIONAL" #or #CUSTOM
+
+#if DIMENSIONAL
+monitor_dimensional = "SERVICE" #or "LINKED_ACCOUNT"
+
+#if Custom 
+# monitor_custom = "TAG" or "COST_CATEGORY"
+# target_key     = 
+# target_value   = 
+
+subcription_name = "Journet-Cost-Subscription"
+frequency        = "IMMEDIATE"
+subscriber       = [ "muhammadhafizhpras@gmail.com", "prasetyo@nipindo.com"]
+threshold_type   = "ANOMALY_TOTAL_IMPACT_PERCENTAGE" #or #"ANOMALY_TOTAL_IMPACT_ABSOLUTE"
+threshold_value  = 20

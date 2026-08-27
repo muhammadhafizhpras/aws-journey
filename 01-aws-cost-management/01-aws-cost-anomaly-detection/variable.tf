@@ -28,7 +28,7 @@ variable "monitor_type" {
   default = "DIMENSIONAL"
 
   validation {
-    condition = contains(["DIMENSIONAL", "CUSTOM"])
+    condition = contains(["DIMENSIONAL", "CUSTOM"], var.monitor_type)
     error_message = "Must Choose One : DIMENSIONAL or CUSTOM"
   }
 }
