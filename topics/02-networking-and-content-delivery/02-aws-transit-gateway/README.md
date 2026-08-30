@@ -65,3 +65,6 @@ Biasanya, aturan Security Group (SG) di AWS hanya bisa merujuk ke SG lain di dal
 
 Contoh Kasus:
 Anda punya Database VPC dan App VPC. Alih-alih harus mengetik alamat IP privat statis (CIDR block) di aturan Security Group database, Anda bisa langsung menuliskan: "Izinkan trafik masuk dari Security Group Application-Server yang ada di VPC sebelah."
+
+
+syarat untuk menghubungkan vpc multi region dan on prem to cloud masing masing environment harus sudah setup aws transit terlebih dahulu dan setelah terkoneksi baru bisa di routing table
